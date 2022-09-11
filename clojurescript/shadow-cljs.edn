@@ -15,5 +15,6 @@
   {:target :node-script
    :output-to "dist/main.js"
    :main analytics.core/main
+   :compiler-options {:infer-externs :auto}
    }}}
 

@@ -2,6 +2,8 @@
   (:require ["better-sqlite3" :as sqlite3]
             ["http" :as http]))
 
+(set! *warn-on-infer* true)
+
 (def db (sqlite3 "analytics.sqlite3"))
 (.pragma db "journal_mode = WAL")
 (.pragma db "synchronous = 1")
@@ -19,7 +21,7 @@ referrer  TEXT NOT NULL);
 (def preparedHello (.prepare db "INSERT INTO visits (user_agent, referrer) VALUES ('foo', 'bar')"))
 (def preparedStats (.prepare db "SELECT MAX(id) FROM visits"))
 
-(defn requestListener [req res]
+(defn requestListener [req ^js res]
   (cond
     (= req.url "/visit") (do (.run preparedHello)
                              (.writeHead res 204)
