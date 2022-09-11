@@ -2,8 +2,10 @@ require 'roda'
 
 class App < Roda
   route do |r|
-    r.root do
-      'Hello World!'
+    r.is 'hello' do
+      r.get do
+        'Hello World!'
+      end
     end
 
     r.is 'visit' do
@@ -15,4 +17,8 @@ class App < Roda
       r.get do
         "stats: "
       end
+    end
   end
+end
+
+run App.freeze.app
