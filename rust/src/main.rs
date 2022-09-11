@@ -48,7 +48,7 @@ async fn stats(pool: web::Data<Pool<sqlx::Sqlite>>) -> impl Responder {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    let database_file = "analytics.sqlite";
+    let database_file = "analytics.sqlite3";
     let database_url = format!("sqlite://{}", database_file);
     let pool_timeout = Duration::from_secs(30);
 

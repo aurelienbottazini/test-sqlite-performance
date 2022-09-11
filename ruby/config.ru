@@ -1,7 +1,13 @@
 require 'roda'
 require 'sequel'
 
-DB = Sequel.sqlite('../analytics.sqlite3')
+DB = Sequel.sqlite('analytics.sqlite3')
+DB.execute("
+CREATE TABLE IF NOT EXISTS visits (
+id    INTEGER PRIMARY KEY,
+user_agent TEXT NOT NULL,
+referrer  TEXT NOT NULL);
+");
 
 class App < Roda
 insert_prepared = DB["INSERT INTO visits (user_agent, referrer) VALUES ('foo', 'bar');"]

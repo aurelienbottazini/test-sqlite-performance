@@ -1,6 +1,6 @@
 (ns analytics.core
   (:import com.mchange.v2.c3p0.ComboPooledDataSource)
-  (:require [ring.adapter.jetty :as jetty] 
+  (:require [ring.adapter.jetty :as jetty]
              [reitit.ring :as ring]
              [clojure.java.jdbc :as j]
              ))
