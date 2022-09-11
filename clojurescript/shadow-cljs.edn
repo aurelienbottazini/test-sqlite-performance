@@ -5,7 +5,10 @@
   "src/test"]
 
  :dependencies
- []
+ [[cider/cider-nrepl "0.28.5"]]
+
+  :nrepl
+ {:port 3333}
 
  :builds
  {:app
