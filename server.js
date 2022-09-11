@@ -1,5 +1,4 @@
 const http = require("http");
-
 const db = require("better-sqlite3")("./analytics.sqlite3");
 
 db.pragma("journal_mode = WAL");
@@ -21,7 +20,7 @@ const prepareHello = db.prepare(
 const prepareStats = db.prepare("SELECT MAX(id) FROM visits;");
 
 const requestListener = function (req, res) {
-  if (req.url === "/hello") {
+  if (req.url === "/visit") {
     prepareHello.run();
     res.writeHead(204);
     res.end();
