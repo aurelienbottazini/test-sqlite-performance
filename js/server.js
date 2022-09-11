@@ -1,5 +1,5 @@
 const http = require("http");
-const db = require("better-sqlite3")("./analytics.sqlite3");
+const db = require("better-sqlite3")("../analytics.sqlite3");
 
 db.pragma("journal_mode = WAL");
 db.pragma("synchronous = 1");
