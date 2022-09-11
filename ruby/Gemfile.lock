@@ -65,6 +65,8 @@ GEM
     samovar (2.1.4)
       console (~> 1.0)
       mapping (~> 1.0)
+    sequel (5.60.1)
+    sqlite3 (1.5.0-arm64-darwin)
     timers (4.3.4)
     traces (0.7.0)
     webrick (1.7.0)
@@ -77,6 +79,8 @@ DEPENDENCIES
   rack (~> 3.0)
   rackup (~> 0.2.2)
   roda (~> 3.59)
+  sequel (~> 5.60)
+  sqlite3 (~> 1.5)
 
 BUNDLED WITH
    2.3.7

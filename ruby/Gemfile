@@ -11,3 +11,7 @@ gem "roda", "~> 3.59"
 gem "rackup", "~> 0.2.2"
 
 gem "falcon", "~> 0.42.3"
+
+gem "sequel", "~> 5.60"
+
+gem "sqlite3", "~> 1.5"
