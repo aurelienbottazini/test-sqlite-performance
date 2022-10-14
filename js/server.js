@@ -27,7 +27,7 @@ const requestListener = function (req, res) {
   } else if (req.url === "/stats") {
     const result = prepareStats.pluck().get();
     res.writeHead(200);
-    res.end(JSON.stringify(result));
+    res.end(result.toString());
   } else {
     res.writeHead(200);
     res.end("Hello, World!");

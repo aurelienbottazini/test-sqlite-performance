@@ -5,3 +5,4 @@ analytics.sqlite3
 analytics.sqlite3-shm
 analytics.sqlite3-wal
 clojurescript/dist
+js/.yarn
