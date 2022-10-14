@@ -29,7 +29,7 @@ export default {
       return new Response(null, { status: 204 });
     } else if (urlPath === "stats") {
       const result = prepareStats.get();
-      return new Response(JSON.stringify(result));
+      return new Response(result["MAX(id)"]);
     } else {
       return new Response("Hello, World!");
     }
