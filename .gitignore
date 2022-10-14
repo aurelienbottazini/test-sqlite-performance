@@ -7,3 +7,5 @@ analytics.sqlite3-wal
 clojurescript/dist
 js/.yarn
 clojurescript/.yarn
+go/analytics.sqlite3-journal
+go/main
