@@ -10,3 +10,9 @@ Server features:
 - `/hello` to return an hello world string
 - `/visits` to return a 204 no content reponse and save a `visit` in an sqlite table
 - `/stats` to return a count from the visits table
+
+## Run
+
+- cd inside language directory
+- `make build`
+- `make serve`
