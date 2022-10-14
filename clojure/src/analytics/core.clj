@@ -15,7 +15,6 @@
   [spec]
   (let [cpds (doto (ComboPooledDataSource.)
                (.setDriverClass (:classname spec))
-              ;;  (.setJdbcUrl (str "jdbc:" (:subprotocol spec) ":" (:subname spec)))
                (.setJdbcUrl (str "jdbc:sqlite:analytics.sqlite3"))
                (.setInitialPoolSize 20)
                (.setMinPoolSize 20)
@@ -29,7 +28,7 @@
 (def pooled-db (delay (pool db-spec)))
 (defn db-connection [] @pooled-db)
 
-(defn hello [_request]
+(defn visit [_request]
 (let [conn (db-connection)]
   (j/execute! conn  "INSERT INTO visits (user_agent, host) VALUES (\"foo\", \"bar\");"))
   {:status 204})
@@ -38,12 +37,17 @@
 (let [conn (db-connection)
 result (j/query conn "SELECT MAX(id) as max from visits;")]
   {:status 200
-   :body (str "<html><header></header><body>Stats: " (:max (first result)) "</body></html>")}))
+   :body (str (:max (first result)))}))
+
+(defn hello [_request]
+  {:status 200
+   :body "Hello World!"})
 
 (def app
 (ring/ring-handler
 (ring/router
 [["/stats" {:get { :handler stats}}]
+["/visit" {:get { :handler visit}}]
 ["/hello" {:get { :handler hello}}]])))
 
 (defn -main [& _args]
@@ -55,4 +59,4 @@ result (j/query conn "SELECT MAX(id) as max from visits;")]
         id    INTEGER PRIMARY KEY,
         user_agent TEXT NOT NULL,
         host  TEXT NOT NULL);"))
-  (jetty/run-jetty app {:port 3000}))
+  (jetty/run-jetty app {:port 3030}))
