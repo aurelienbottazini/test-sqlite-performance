@@ -12,13 +12,13 @@ use sqlx::{
 
 include!(concat!(env!("OUT_DIR"), "/generated.rs"));
 
-#[get("/")]
-async fn index() -> impl Responder {
+#[get("/hello")]
+async fn hello() -> impl Responder {
     HttpResponse::Ok().body("Hello world!")
 }
 
 #[get("/visit")]
-async fn hello(pool: web::Data<Pool<sqlx::Sqlite>>, req: HttpRequest) -> impl Responder {
+async fn visit(pool: web::Data<Pool<sqlx::Sqlite>>, req: HttpRequest) -> impl Responder {
     let agent = match req.headers().get("user-agent") {
         Some(agent) => agent.to_str().unwrap_or("unknown"),
         None => "unknown",
@@ -45,7 +45,7 @@ async fn stats(pool: web::Data<Pool<sqlx::Sqlite>>) -> impl Responder {
         .await
         .expect("failed count");
 
-    HttpResponse::Ok().body(format!("Visits: {}", row.0))
+    HttpResponse::Ok().body(format!("{}", row.0))
 }
 
 #[actix_web::main]
@@ -91,9 +91,9 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .wrap(cors)
             .app_data(web::Data::new(pool.clone()))
-            .service(hello)
+            .service(visit)
             .service(stats)
-            .service(index)
+            .service(hello)
             .service(ResourceFiles::new("/", generated))
     })
     .bind(("0.0.0.0", 3030))?

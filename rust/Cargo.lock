@@ -1172,17 +1172,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "rust-analytics"
-version = "0.1.0"
-dependencies = [
- "actix-cors",
- "actix-web",
- "actix-web-static-files",
- "sqlx",
- "static-files",
-]
-
-[[package]]
 name = "rustc_version"
 version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1349,6 +1338,17 @@ dependencies = [
  "itertools",
  "nom",
  "unicode_categories",
+]
+
+[[package]]
+name = "sqlite-performance-test"
+version = "0.1.0"
+dependencies = [
+ "actix-cors",
+ "actix-web",
+ "actix-web-static-files",
+ "sqlx",
+ "static-files",
 ]
 
 [[package]]
