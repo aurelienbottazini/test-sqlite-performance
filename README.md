@@ -3,7 +3,9 @@ I try to have implementations that are as fast as possible with as few dependenc
 
 I am not an expert in all the languages tested.
 I do my best effort to have a *reasonable* implementation.
-I do my best to use each language properly and to find ways to make it fast in each language.
+I did try to use each language properly and to find ways to make it fast.
+If I failed it is also a sign the language is not that simple to use in a performant way.
+I was able in at least some of the languages to serve for each case scenario to serve millions of request/30 seconds.
 
 Server features:
 
