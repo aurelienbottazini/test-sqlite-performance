@@ -1,13 +1,12 @@
-The goal of this repo is to simulate a small analytics server.
+The goal of this repo is to test sqlite3 performance when used with a webserver.
+I try to have implementations that are as fast as possible with as few dependencies as possible.
 
-This analytics server can:
+I am not an expert in all the languages tested.
+I do my best effort to have a *reasonable* implementation.
+I do my best to use each language properly and to find ways to make it fast in each language.
 
-- return hello world
-- register `visits` (think of a website using an URL to register user visits)
-- return `stats` (the total number of visits)
+Server features:
 
-Data is persisted with sqlite3.
-
-The goal is to compage language and framework speed.
-I don't want something complicated with a ton of dependencies.
-But I do want to check the cost of making a database query and how this plays with concurrency.
+- `/hello` to return an hello world string
+- `/visits` to return a 204 no content reponse and save a `visit` in an sqlite table
+- `/stats` to return a count from the visits table
