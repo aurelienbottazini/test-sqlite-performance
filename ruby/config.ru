@@ -31,7 +31,7 @@ select_prepared = DB["SELECT MAX(id) as max FROM visits;"]
     r.is 'stats' do
       r.get do
         count = select_prepared.call(:select)
-        "stats: #{count.first.max[1]}"
+        "#{count.first.max[1]}"
       end
     end
   end
