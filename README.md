@@ -16,3 +16,10 @@ Server features:
 - cd inside language directory
 - `make build`
 - `make serve`
+
+## Test commands
+
+- `wrk -t12 -c400 -d30 http://0.0.0.0:3030/hello`
+- `wrk -t12 -c400 -d30 http://0.0.0.0:3030/visit`
+- `wrk -t12 -c400 -d30 http://0.0.0.0:3030/stats`
+
