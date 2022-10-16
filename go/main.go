@@ -42,7 +42,7 @@ pragma temp_store = MEMORY;
 		return ctx.TextResponse("Hello World!")
 	})
 
-	server.GET("/visits", func(ctx *atreugo.RequestCtx) error {
+	server.GET("/visit", func(ctx *atreugo.RequestCtx) error {
 		err := conn.Exec("INSERT INTO visits (user_agent, referrer) VALUES ('foo', 'bar')")
 		if err != nil {
 			log.Printf("%q: %s\n", err, sqlStmt)
