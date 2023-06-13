@@ -25,3 +25,57 @@ Server features:
 - `wrk -t12 -c400 -d30 http://0.0.0.0:3030/visit`
 - `wrk -t12 -c400 -d30 http://0.0.0.0:3030/stats`
 
+## Results
+
+### ClojureScript
+
+- hello: 2.146.785
+- #3 visit: 1.272.862
+- stats: 1.681.424
+
+### Rust 2021
+
+TODO: test with diesel and rusqlite
+https://github.com/diesel-rs/metrics
+
+Memory does not go up after successive runs. 16 Mo
+
+- #2 hello: 4.665.344
+- visit: 599.205
+- #2 stats: 1.748.789
+
+### Clojure
+
+- hello: 2.829.808
+- visit: 88.600
+- #3 stats: 1.705.588
+
+### js node 18.15.0
+
+- hello: 2.007.203
+- #2 visit: 1.293.715
+- stats: 1.794.942
+
+### bun 0.6.8
+
+- #1 hello: 4.707.980, memory: 38 Mo
+- #1 visit: 1.571.157, memory: 45 Mo
+- #1 stats: 2.611.391, memory: 31 Mo -> memory grows after several runs
+
+### deno 1.34.2
+
+- hello: 1.857.104
+- visit: 2.595
+- stats: 782.207
+
+### Ruby
+
+- hello: 1.961.568
+- visit: 62.454
+- stats: 861.117
+
+### Go 1.18.1
+
+- #3 hello: 4.518.796
+- visit: crashes
+- stats: did not test because of visit crash

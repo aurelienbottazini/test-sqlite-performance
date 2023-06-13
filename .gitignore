@@ -9,3 +9,7 @@ js/.yarn
 clojurescript/.yarn
 go/analytics.sqlite3-journal
 go/main
+.clj-kondo/.cache/v1/clj/analytics.core.transit.json
+.clj-kondo/.cache/v1/cljs/analytics.core.transit.json
+.clj-kondo/.cache/v1
+.lsp/.cache
