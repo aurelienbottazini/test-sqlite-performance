@@ -52,7 +52,10 @@ result (j/query conn "SELECT MAX(id) as max from visits;")]
 
 (defn -main [& _args]
   (let [conn (db-connection)]
-    (j/execute! conn "pragma temp_store = memory;")
+    ;; (j/execute! conn "pragma journal_mode = WAL;")
+    (j/execute! conn "pragma synchronous = 1;")
+    (j/execute! conn "pragma temp_store = MEMORY;")
+    ;; (j/execute! conn "pragma temp_store = memory;")
     ;; (j/execute! conn "pragma mmap_size = 30000000000;")
     (j/execute! conn "pragma page_size = 4096;")
     (j/execute! conn "CREATE TABLE IF NOT EXISTS visits (
