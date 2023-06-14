@@ -61,14 +61,14 @@ async fn main() -> std::io::Result<()> {
         .synchronous(SqliteSynchronous::Normal)
         .page_size(4096)
         .pragma("mmap_size", "30000000000")
-        .pragma("temp_store", "memory")
+        .pragma("temp_store", "2")
         .busy_timeout(pool_timeout);
 
     let pool = SqlitePoolOptions::new()
-        .max_connections(10)
+        .max_connections(35)
         .connect_with(connection_options)
         .await
-        .expect("creat pool");
+        .expect("create pool");
 
     sqlx::query(
         "

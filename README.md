@@ -35,9 +35,6 @@ Server features:
 
 ### Rust 2021
 
-TODO: test with diesel and rusqlite
-https://github.com/diesel-rs/metrics
-
 Memory does not go up after successive runs. 16 Mo
 
 - #2 hello: 4.665.344
