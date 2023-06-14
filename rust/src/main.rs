@@ -65,7 +65,7 @@ async fn main() -> std::io::Result<()> {
         .busy_timeout(pool_timeout);
 
     let pool = SqlitePoolOptions::new()
-        .max_connections(35)
+        .max_connections(6)
         .connect_with(connection_options)
         .await
         .expect("create pool");
