@@ -42,6 +42,7 @@ GEM
     io-event (1.0.9)
     localhost (1.1.9)
     mapping (1.1.1)
+    nio4r (2.5.9)
     openssl (3.0.1)
     process-metrics (0.2.1)
       console (~> 1.8)
@@ -56,6 +57,8 @@ GEM
     protocol-rack (0.2.4)
       protocol-http (~> 0.23)
       rack (>= 1.0)
+    puma (6.3.0)
+      nio4r (~> 2.0)
     rack (3.0.0)
     rackup (0.2.2)
       rack (>= 3.0.0.beta1)
@@ -76,6 +79,7 @@ PLATFORMS
 
 DEPENDENCIES
   falcon (~> 0.42.3)
+  puma (~> 6.3.0)
   rack (~> 3.0)
   rackup (~> 0.2.2)
   roda (~> 3.59)

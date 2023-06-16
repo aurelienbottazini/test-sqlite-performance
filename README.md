@@ -67,9 +67,9 @@ Memory does not go up after successive runs. 16 Mo
 
 ### Ruby
 
-- hello: 1.961.568
-- visit: 62.454
-- stats: 861.117
+- hello: 1.710.789
+- visit: 556.532
+- stats: 1.483.998
 
 ### Go 1.18.1
 
