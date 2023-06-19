@@ -30,34 +30,34 @@ Server features:
 ### ClojureScript
 
 - hello: 2.146.785
-- #3 visit: 1.272.862
+- visit: 1.272.862
 - stats: 1.681.424
 
 ### Rust 2021
 
 Memory does not go up after successive runs. 16 Mo
 
-- #2 hello: 4.665.344
+- hello: 4.665.344
 - visit: 599.205
-- #2 stats: 1.748.789
+- stats: 1.748.789
 
 ### Clojure
 
 - hello: 2.829.808
 - visit: 88.600
-- #3 stats: 1.705.588
+- stats: 1.705.588
 
 ### js node 18.15.0
 
 - hello: 2.007.203
-- #2 visit: 1.293.715
+- visit: 1.293.715
 - stats: 1.794.942
 
 ### bun 0.6.8
 
-- #1 hello: 4.707.980, memory: 38 Mo
-- #1 visit: 1.571.157, memory: 45 Mo
-- #1 stats: 2.611.391, memory: 31 Mo -> memory grows after several runs
+- hello: 4.707.980, memory: 38 Mo
+- visit: 1.571.157, memory: 45 Mo
+- stats: 2.611.391, memory: 31 Mo -> memory grows after several runs
 
 ### deno 1.34.2
 
@@ -67,9 +67,9 @@ Memory does not go up after successive runs. 16 Mo
 
 ### Ruby
 
-- hello: 1.710.789
-- visit: 556.532
-- stats: 1.483.998
+- hello: 9.699.995
+- visit: 1.022.697 (194.959 with db busy errors)
+- stats: 6.758.355
 
 ### Go 1.18.1
 
