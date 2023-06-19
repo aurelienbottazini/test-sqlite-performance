@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'roda'
-# require 'sequel'
 require 'extralite'
 
 DB = Extralite::Database.new('analytics.sqlite3')
@@ -30,7 +29,14 @@ class App < Roda
 
     r.is 'visit' do
       r.get do
-        insert_prepared.query
+        begin
+          attempts ||= 1
+          insert_prepared.query
+        rescue
+          if (attempts += 1) < 5
+            retry
+          end
+        end
         response.status = 204
         ''
       end
@@ -38,7 +44,14 @@ class App < Roda
 
     r.is 'stats' do
       r.get do
-        count = DB.query_single_value('select MAX(id) as max from visits;')
+        begin
+          attempts ||= 1
+          count = DB.query_single_value('select MAX(id) as max from visits;')
+        rescue
+          if (attempts += 1) < 5
+            retry
+          end
+        end
         count = select_prepared.query_single_value
         count.to_s
       end
