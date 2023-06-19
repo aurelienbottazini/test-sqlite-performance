@@ -25,6 +25,7 @@ GEM
     build-environment (1.13.0)
     console (1.15.3)
       fiber-local
+    extralite (1.27)
     falcon (0.42.3)
       async
       async-container (~> 0.16.0)
@@ -78,6 +79,7 @@ PLATFORMS
   arm64-darwin-21
 
 DEPENDENCIES
+  extralite
   falcon (~> 0.42.3)
   puma (~> 6.3.0)
   rack (~> 3.0)

@@ -1,14 +1,16 @@
 # frozen_string_literal: true
 
 require 'roda'
-require 'sequel'
+# require 'sequel'
+require 'extralite'
 
-CONN = Sequel.sqlite(database: 'analytics.sqlite3').connect({})
-CONN.synchronous = :normal
-CONN.journal_mode = :wal
-CONN.page_size = 4096
-CONN.mmap_size = 30_000_000_000
-CONN.execute("
+DB = Extralite::Database.new('analytics.sqlite3')
+DB.pragma(journal_mode: 'wal')
+DB.pragma(synchronous: 'normal')
+DB.pragma(page_size: '4096')
+DB.pragma(mmap_size: '30000000000')
+
+DB.execute("
 CREATE TABLE IF NOT EXISTS visits (
 id    INTEGER PRIMARY KEY,
 user_agent TEXT NOT NULL,
@@ -16,8 +18,8 @@ referrer  TEXT NOT NULL);
 ")
 
 class App < Roda
-  insert_prepared = CONN.prepare("INSERT INTO visits (user_agent, referrer) VALUES ('foo', 'bar');")
-  select_prepared = CONN.prepare('SELECT MAX(id) as max FROM visits;')
+  insert_prepared = DB.prepare("INSERT INTO visits (user_agent, referrer) VALUES ('foo', 'bar');")
+  select_prepared = DB.prepare('SELECT MAX(id) as max FROM visits;')
 
   route do |r|
     r.is 'hello' do
@@ -28,7 +30,7 @@ class App < Roda
 
     r.is 'visit' do
       r.get do
-        insert_prepared.execute
+        insert_prepared.query
         response.status = 204
         ''
       end
@@ -36,8 +38,9 @@ class App < Roda
 
     r.is 'stats' do
       r.get do
-        count = select_prepared.execute.next[0]
-        "#{count}"
+        count = DB.query_single_value('select MAX(id) as max from visits;')
+        count = select_prepared.query_single_value
+        count.to_s
       end
     end
   end
