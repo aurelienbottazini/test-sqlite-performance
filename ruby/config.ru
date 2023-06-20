@@ -32,13 +32,13 @@ class App < Roda
         begin
           attempts ||= 1
           insert_prepared.query
-        rescue
+        rescue StandardError
           if (attempts += 1) < 5
             retry
           end
+          raise 'Failed to insert'
         end
-        response.status = 204
-        ''
+        'OK'
       end
     end
 
@@ -47,10 +47,11 @@ class App < Roda
         begin
           attempts ||= 1
           count = DB.query_single_value('select MAX(id) as max from visits;')
-        rescue
+        rescue StandardError
           if (attempts += 1) < 5
             retry
           end
+          raise 'Failed to select'
         end
         count = select_prepared.query_single_value
         count.to_s
