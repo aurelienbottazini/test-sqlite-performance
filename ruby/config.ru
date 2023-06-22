@@ -33,10 +33,7 @@ class App < Roda
           attempts ||= 1
           insert_prepared.query
         rescue StandardError
-          if (attempts += 1) < 5
-            retry
-          end
-          raise 'Failed to insert'
+          retry
         end
         'OK'
       end
