@@ -23,5 +23,4 @@ ActiveSupport::on_load(:active_record_sqlite3adapter) do
   class ActiveRecord::ConnectionAdapters::SQLite3Adapter
     prepend SQLitePragmaStatements
   end
-
 end
