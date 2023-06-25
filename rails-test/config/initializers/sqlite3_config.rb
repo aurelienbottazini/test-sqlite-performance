@@ -19,8 +19,15 @@ ActiveSupport::on_load(:active_record_sqlite3adapter) do
     end
   end
 
+  module SqliteTransactionFix
+    def begin_db_transaction
+      log('begin immediate transaction', nil) { @connection.transaction(:immediate) }
+    end
+  end
+
 
   class ActiveRecord::ConnectionAdapters::SQLite3Adapter
+    prepend SqliteTransactionFix
     prepend SQLitePragmaStatements
   end
 end
