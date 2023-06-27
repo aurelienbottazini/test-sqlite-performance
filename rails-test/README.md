@@ -1,7 +1,7 @@
 # README
 
 ```shell
-docker build -t test-sqlite-performance-rails .
-docker run test-sqlite-performance-rails:latest
-docker run -it -p 3030:3030 test-sqlite-performance-rails
+docker build -t aurelienbottazini/test-sqlite-performance-rails .
+docker run -it -p 3030:3030 aurelienbottazini/test-sqlite-performance-rails
+docker push aurelienbottazini/test-sqlite-performance-rails
 ```
