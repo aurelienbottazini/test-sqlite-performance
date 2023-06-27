@@ -1,0 +1,19 @@
+# Ignore development and test files
+/tmp
+/log
+/db/*.sqlite3
+/db/*.sqlite3-journal
+/db/*.sqlite3-shm
+/db/*.sqlite3-wal
+
+# Ignore node.js dependencies
+/node_modules
+
+# Ignore bundler cache
+/vendor/bundle
+
+# Ignore Docker-related files
+.dockerignore
+Dockerfile*
+docker-compose.yml
+
