@@ -28,5 +28,5 @@ production:
   password: your_postgres_password
   host: 0.0.0.0
   port: 5432
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  pool: 3 # postgres max_connections must by > worker * threads * pool
   timeout: 5000
