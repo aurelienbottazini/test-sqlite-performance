@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'up/index'
   get 'stats', to: 'stats#index'
   get 'visit', to: 'visit#index'
   get 'hello', to: 'hello#index'
