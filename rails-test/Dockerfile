@@ -11,6 +11,8 @@ RUN bundle install
 
 COPY . .
 
+RUN rake assets:precompile
+
 EXPOSE 3030
 
 CMD make serve
