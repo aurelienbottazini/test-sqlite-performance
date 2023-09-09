@@ -1,24 +1,7 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```shell
+docker build -t aurelienbottazini/test-sqlite-performance-rails .
+docker run -it -p 3030:3030 aurelienbottazini/test-sqlite-performance-rails
+docker push aurelienbottazini/test-sqlite-performance-rails
+```

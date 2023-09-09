@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:13
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+      - ./postgres-config/postgresql.conf:/etc/postgresql/postgresql.conf
+    environment:
+      - POSTGRES_USER=your_postgres_user
+      - POSTGRES_PASSWORD=your_postgres_password
+    ports:
+      - 5432:5432
+
+  # web:
+  #   build: .
+  #   command: |
+  #     make serve
+  #   volumes:
+  #     - .:/app
+  #   ports:
+  #     - 3030:3030
+  #   depends_on:
+  #     - db
+  #   environment:
+  #     - RAILS_ENV=production
+  #     - DATABASE_HOST=db
+  #     - DATABASE_USERNAME=your_postgres_user
+  #     - DATABASE_PASSWORD=your_postgres_password
