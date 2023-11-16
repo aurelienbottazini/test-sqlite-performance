@@ -1,7 +1,8 @@
-class VisitController < ApplicationController
+class VisitController < ActionController::Metal
   def index
     Visit.create(referrer: "foo", user_agent: "bar")
 
-    render status: 204, plain: nil
+    self.response_body = nil
+    self.status = 204
   end
 end

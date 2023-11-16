@@ -22,11 +22,12 @@ test:
 
 production:
   <<: *default
-  adapter: postgresql
-  database: production
-  username: your_postgres_user
-  password: your_postgres_password
-  host: 0.0.0.0
-  port: 5432
-  pool: 3 # postgres max_connections must by > worker * threads * pool
-  timeout: 5000
+  database: db/production.sqlite3
+#  adapter: postgresql
+#  database: production
+#  username: your_postgres_user
+#  password: your_postgres_password
+#  host: 0.0.0.0
+#  port: 5432
+#  pool: 3 # postgres max_connections must by > worker * threads * pool
+#  timeout: 5000

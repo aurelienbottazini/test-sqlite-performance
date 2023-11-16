@@ -1,5 +1,5 @@
-class HelloController < ApplicationController
+class HelloController < ActionController::Metal
   def index
-    render plain: 'Hello world from Rails!'
+    self.response_body = 'Hello world from Rails!'
   end
 end

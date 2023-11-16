@@ -1,5 +1,5 @@
-class StatsController < ApplicationController
+class StatsController < ActionController::Metal
   def index
-    render plain: Visit.maximum(:id)
+    self.response_body = Visit.maximum(:id)
   end
 end
