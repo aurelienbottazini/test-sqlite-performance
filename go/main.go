@@ -1,20 +1,21 @@
 package main
 
 import (
+    "database/sql"
 	"fmt"
 	"log"
 	"strconv"
 
-	"github.com/bvinc/go-sqlite-lite/sqlite3"
+    _ "github.com/mattn/go-sqlite3"
 	"github.com/savsgio/atreugo/v11"
 )
 
 func main() {
-	conn, err := sqlite3.Open("./analytics.sqlite3")
+	db, err := sql.Open("sqlite3", "./analytics.sqlite3")
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer conn.Close()
+	defer db.Close()
 
 	sqlStmt := `
 CREATE TABLE IF NOT EXISTS visits (
@@ -27,7 +28,7 @@ pragma page_size = 4096;
 pragma mmap_size = 30000000000;
 pragma temp_store = MEMORY;
 	`
-	err = conn.Exec(sqlStmt)
+    _, err = db.Exec(sqlStmt)
 	if err != nil {
 		log.Printf("%q: %s\n", err, sqlStmt)
 		return
@@ -43,7 +44,7 @@ pragma temp_store = MEMORY;
 	})
 
 	server.GET("/visit", func(ctx *atreugo.RequestCtx) error {
-		err := conn.Exec("INSERT INTO visits (user_agent, referrer) VALUES ('foo', 'bar')")
+		_, err := db.Exec("INSERT INTO visits (user_agent, referrer) VALUES ('foo', 'bar')")
 		if err != nil {
 			log.Printf("%q: %s\n", err, sqlStmt)
 		}
@@ -52,18 +53,14 @@ pragma temp_store = MEMORY;
 	})
 
 	server.GET("/stats", func(ctx *atreugo.RequestCtx) error {
-		stmt, err := conn.Prepare("SELECT MAX(id) FROM visits;")
+		stmt, err := db.Prepare("SELECT MAX(id) FROM visits;")
 		if err != nil {
 			log.Fatal(err)
 		}
 		defer stmt.Close()
 
-		_, err = stmt.Step()
-		if err != nil {
-			return fmt.Errorf("step failed while querying count: %v", err)
-		}
 		var count int
-		err = stmt.Scan(&count)
+		err = stmt.QueryRow().Scan(&count)
 		if err != nil {
 			return fmt.Errorf("scan failed while querying count: %v", err)
 		}
