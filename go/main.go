@@ -1,12 +1,12 @@
 package main
 
 import (
-    "database/sql"
+	"database/sql"
 	"fmt"
 	"log"
 	"strconv"
 
-    _ "github.com/mattn/go-sqlite3"
+	_ "github.com/mattn/go-sqlite3"
 	"github.com/savsgio/atreugo/v11"
 )
 
@@ -28,7 +28,7 @@ pragma page_size = 4096;
 pragma mmap_size = 30000000000;
 pragma temp_store = MEMORY;
 	`
-    _, err = db.Exec(sqlStmt)
+	_, err = db.Exec(sqlStmt)
 	if err != nil {
 		log.Printf("%q: %s\n", err, sqlStmt)
 		return
