@@ -1,5 +1,6 @@
 serve:
-	bundle exec falcon serve --port 3030 -b http://0.0.0.0
+	WEB_CONCURRENCY=5 rackup --env production -o 0.0.0.0 -p 3030 -O Threads=0:12
+	# bundle exec falcon serve --port 3030 -b http://0.0.0.0
 
 build:
 	bundle
