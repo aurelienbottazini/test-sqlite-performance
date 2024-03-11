@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-for w in clojure go js js-bun js-deno rails ruby rust
+for w in clojure clojurescript go js js-bun js-deno rails ruby rust
 do
   cd $w
   rm  -f ./analytics.sqlite3
