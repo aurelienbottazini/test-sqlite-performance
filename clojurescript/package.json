@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "devDependencies": {
-    "shadow-cljs": "2.20.1"
+    "shadow-cljs": "^2.27.5"
   },
   "dependencies": {
-    "better-sqlite3": "^7.6.2"
+    "better-sqlite3": "^9.4.3"
   }
 }

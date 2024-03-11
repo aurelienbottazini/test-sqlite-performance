@@ -2,5 +2,5 @@ serve:
 	node ./dist/main.js
 
 build:
-	yarn
+	npm install
 	npx shadow-cljs release app

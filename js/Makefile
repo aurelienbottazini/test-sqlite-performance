@@ -2,4 +2,4 @@ serve:
 	node server.js
 
 build:
-	yarn
+	npm i
