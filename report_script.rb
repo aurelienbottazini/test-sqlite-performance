@@ -4,8 +4,8 @@ require 'pp'
 @acc = {}
 [ 'clojure', 'clojurescript', 'go', 'js-bun', 'js-deno', 'js', 'rails', 'ruby', 'rust' ].map do |v|
   hello = File.read("./stats/#{v}_hello.txt").lines[5].strip.split(' ')[0]
+  stats = File.read("./stats/#{v}_stats.txt").lines[5].strip.split(' ')[0]
   visit = File.read("./stats/#{v}_visit.txt").lines[5].strip.split(' ')[0]
-  stats = File.read("./stats/#{v}_visit.txt").lines[5].strip.split(' ')[0]
   @acc[v] = { hello: hello.to_i, visit: visit.to_i, stats: stats.to_i }
 end
 
