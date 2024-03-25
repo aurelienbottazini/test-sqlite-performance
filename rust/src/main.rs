@@ -57,9 +57,6 @@ async fn main() -> std::io::Result<()> {
     let connection_options = SqliteConnectOptions::from_str(&database_url)
         .expect("connection options")
         .create_if_missing(true)
-        .journal_mode(SqliteJournalMode::Wal)
-        .synchronous(SqliteSynchronous::Normal)
-        .page_size(4096)
         .pragma("mmap_size", "30000000000")
         .pragma("temp_store", "2")
         .busy_timeout(pool_timeout);
@@ -69,17 +66,6 @@ async fn main() -> std::io::Result<()> {
         .connect_with(connection_options)
         .await
         .expect("create pool");
-
-    sqlx::query(
-        "
-        CREATE TABLE IF NOT EXISTS visits (
-        id    INTEGER PRIMARY KEY,
-        user_agent TEXT NOT NULL,
-        referrer  TEXT NOT NULL);",
-    )
-    .execute(&pool)
-    .await
-    .expect("create visits table");
 
     HttpServer::new(move || {
         let cors = Cors::default()

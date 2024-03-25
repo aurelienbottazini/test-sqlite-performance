@@ -6,6 +6,8 @@ do
   rm  -f ./analytics.sqlite3
   rm  -f ./analytics.sqlite3-shm
   rm  -f ./analytics.sqlite3-wal
+  touch ./analytics.sqlite3
+  sqlite3 analytics.sqlite3 < ../sql/setup_sqlite.sql
   make build 1>/dev/null
   make serve 1>/dev/null &
   SERVER_PID=$!

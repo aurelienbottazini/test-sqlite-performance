@@ -25,8 +25,6 @@ referrer  TEXT NOT NULL);
 pragma journal_mode=wal;
 pragma synchronous=1;
 pragma page_size = 4096;
-pragma mmap_size = 30000000000;
-pragma temp_store = MEMORY;
 	`
 	_, err = db.Exec(sqlStmt)
 	if err != nil {

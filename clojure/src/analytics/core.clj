@@ -8,7 +8,7 @@
 (def db-spec
   {:classname "org.sqlite.JDBC"
    :subprotocol "sqlite"
-   :subname "//analytics.sqlite3?journal_mode=wal&synchronous=normal&temp_store=memory&page_size=4096&mmap_size=30000000000"
+   :subname "//analytics.sqlite3?temp_store=memory&mmap_size=30000000000"
    })
 
 (defn pool
@@ -30,7 +30,7 @@
 
 (defn visit [_request]
 (let [conn (db-connection)]
-  (j/execute! conn  "INSERT INTO visits (user_agent, host) VALUES (\"foo\", \"bar\");"))
+  (j/execute! conn  "INSERT INTO visits (user_agent, referrer) VALUES (\"foo\", \"bar\");"))
   {:status 204})
 
 (defn stats [_request]
@@ -52,14 +52,6 @@ result (j/query conn "SELECT MAX(id) as max from visits;")]
 
 (defn -main [& _args]
   (let [conn (db-connection)]
-    ;; (j/execute! conn "pragma journal_mode = wal;")
-    ;; (j/execute! conn "pragma synchronous = 1;")
-    ;; (j/execute! conn "pragma temp_store = MEMORY;")
-    ;; (j/execute! conn "pragma temp_store = memory;")
-    ;; (j/execute! conn "pragma mmap_size = 30000000000;")
-    ;; (j/execute! conn "pragma page_size = 4096;")
-    (j/execute! conn "CREATE TABLE IF NOT EXISTS visits (
-        id    INTEGER PRIMARY KEY,
-        user_agent TEXT NOT NULL,
-        host  TEXT NOT NULL);"))
-  (jetty/run-jetty app {:port 3030}))
+    (j/execute! conn "pragma temp_store = memory;")
+    (j/query conn "pragma mmap_size = 30000000000;")
+  (jetty/run-jetty app {:port 3030})))

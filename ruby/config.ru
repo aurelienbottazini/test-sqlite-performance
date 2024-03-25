@@ -4,17 +4,8 @@ require 'roda'
 require 'extralite'
 
 DB = Extralite::Database.new('analytics.sqlite3')
-DB.pragma(journal_mode: 'wal')
-DB.pragma(synchronous: 'normal')
 DB.pragma(page_size: '4096')
 DB.pragma(mmap_size: '30000000000')
-
-DB.execute("
-CREATE TABLE IF NOT EXISTS visits (
-id    INTEGER PRIMARY KEY,
-user_agent TEXT NOT NULL,
-referrer  TEXT NOT NULL);
-")
 
 class App < Roda
   insert_prepared = DB.prepare("INSERT INTO visits (user_agent, referrer) VALUES ('foo', 'bar');")

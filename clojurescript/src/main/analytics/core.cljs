@@ -5,18 +5,8 @@
 (set! *warn-on-infer* true)
 
 (def db (sqlite3 "analytics.sqlite3"))
-(.pragma db "journal_mode = WAL")
-(.pragma db "synchronous = 1")
-(.pragma db "page_size = 4096")
 (.pragma db "mmap_size = 30000000000")
 (.pragma db "temp_store = MEMORY")
-
-(.exec db "
-CREATE TABLE IF NOT EXISTS visits (
-id    INTEGER PRIMARY KEY,
-user_agent TEXT NOT NULL,
-referrer  TEXT NOT NULL);
-");
 
 (def preparedHello (.prepare db "INSERT INTO visits (user_agent, referrer) VALUES ('foo', 'bar')"))
 (def preparedStats (.prepare db "SELECT MAX(id) FROM visits"))
