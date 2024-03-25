@@ -4,7 +4,7 @@ require 'roda'
 require 'extralite'
 
 DB = Extralite::Database.new('analytics.sqlite3')
-DB.pragma(page_size: '4096')
+DB.pragma(temp_store: 'memory')
 DB.pragma(mmap_size: '30000000000')
 
 class App < Roda

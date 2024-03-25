@@ -8,7 +8,7 @@
 (def db-spec
   {:classname "org.sqlite.JDBC"
    :subprotocol "sqlite"
-   :subname "//analytics.sqlite3?temp_store=memory&mmap_size=30000000000"
+   :subname "//analytics.sqlite3"
    })
 
 (defn pool
@@ -16,9 +16,9 @@
   (let [cpds (doto (ComboPooledDataSource.)
                (.setDriverClass (:classname spec))
                (.setJdbcUrl (str "jdbc:sqlite:analytics.sqlite3"))
-               (.setInitialPoolSize 20)
-               (.setMinPoolSize 20)
-               (.setMaxPoolSize 20)
+               (.setInitialPoolSize 6)
+               (.setMinPoolSize 6)
+               (.setMaxPoolSize 6)
                ;; expire excess connections after 30 minutes of inactivity:
                (.setMaxIdleTimeExcessConnections (* 30 60))
                ;; expire connections after 3 hours of inactivity:
