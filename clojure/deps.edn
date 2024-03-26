@@ -5,4 +5,9 @@
          com.mchange/c3p0 {:mvn/version "0.9.5"}
          metosin/reitit {:mvn/version "0.5.18"}
          org.xerial/sqlite-jdbc {:mvn/version "3.39.2.1"}}
+
+  :aliases
+ {;; Run with clj -T:build function-in-build
+  :build {:deps {io.github.clojure/tools.build {:git/tag "v0.10.0" :git/sha "3a2c484"}}
+          :ns-default build}}
 }

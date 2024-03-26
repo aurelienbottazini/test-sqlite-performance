@@ -14,3 +14,4 @@ go/main
 .clj-kondo/.cache/v1
 .lsp/.cache
 stats
+clojure/target

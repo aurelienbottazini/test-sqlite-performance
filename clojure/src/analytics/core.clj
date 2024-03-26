@@ -1,4 +1,5 @@
 (ns analytics.core
+  (:gen-class)
   (:import com.mchange.v2.c3p0.ComboPooledDataSource)
   (:require [ring.adapter.jetty :as jetty]
              [reitit.ring :as ring]
