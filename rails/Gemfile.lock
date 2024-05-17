@@ -293,6 +293,9 @@ GEM
     stimulus-rails (1.2.1)
       railties (>= 6.0.0)
     thor (1.2.2)
+    thruster (0.1.4-aarch64-linux)
+    thruster (0.1.4-arm64-darwin)
+    thruster (0.1.4-x86_64-linux)
     timeout (0.4.1)
     timers (4.3.5)
     traces (0.11.1)
@@ -342,6 +345,7 @@ DEPENDENCIES
   sprockets-rails
   sqlite3 (~> 1.4)
   stimulus-rails
+  thruster (~> 0.1.4)
   turbo-rails
   tzinfo-data
   web-console
