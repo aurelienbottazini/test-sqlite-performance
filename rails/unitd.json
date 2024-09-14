@@ -1,0 +1,26 @@
+{
+    "listeners": {
+        "*:80": {
+            "pass": "routes"
+        }
+    },
+
+    "routes": [
+        {
+            "action": {
+                "share": "/Users/aurelienbottazini/projects/test-sqlite-performance/rails/public$uri",
+                "fallback": {
+                    "pass": "applications/rails"
+                }
+            }
+        }
+    ],
+
+    "applications": {
+        "rails": {
+            "type": "ruby",
+            "script": "config.ru",
+            "working_directory": "/Users/aurelienbottazini/projects/test-sqlite-performance/rails"
+        }
+    }
+}
