@@ -1,21 +1,21 @@
 # frozen_string_literal: true
 
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
 # gem "rails"
 
-gem 'rack', '~> 3.0'
+gem "rack"
 
-gem 'roda', '~> 3.59'
+gem "roda"
 
-gem 'rackup', '~> 0.2.2'
+gem "rackup"
 
-gem 'falcon', '~> 0.42.3'
+gem "falcon"
 
-gem 'sequel', '~> 5.60'
+gem "sequel"
 
-gem 'sqlite3', '~> 1.5'
+gem "sqlite3"
 
-gem 'puma', '~> 6.3.0'
+gem "puma"
 
-gem 'extralite'
+gem "extralite"

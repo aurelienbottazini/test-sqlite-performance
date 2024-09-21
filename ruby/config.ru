@@ -4,12 +4,15 @@ require 'roda'
 require 'extralite'
 
 DB = Extralite::Database.new('analytics.sqlite3')
+DB.pragma(journal_mode: 'wal')
+DB.pragma(synchronous: '1')
+DB.pragma(page_size: '4096')
 DB.pragma(temp_store: 'memory')
 DB.pragma(mmap_size: '30000000000')
 
 class App < Roda
   insert_prepared = DB.prepare("INSERT INTO visits (user_agent, referrer) VALUES ('foo', 'bar');")
-  select_prepared = DB.prepare('SELECT MAX(id) as max FROM visits;')
+  select_prepared = DB.prepare_splat('SELECT MAX(id) as max FROM visits;')
 
   route do |r|
     r.is 'hello' do
@@ -22,9 +25,13 @@ class App < Roda
       r.get do
         begin
           attempts ||= 1
-          insert_prepared.query
+          insert_prepared.reset
+          insert_prepared.next
         rescue StandardError
-          retry
+          if (attempts += 1) < 5
+            retry
+          end
+          raise 'Failed to insert'
         end
         'OK'
       end
@@ -32,16 +39,17 @@ class App < Roda
 
     r.is 'stats' do
       r.get do
+        count = nil
         begin
           attempts ||= 1
-          count = DB.query_single_value('select MAX(id) as max from visits;')
+          select_prepared.reset
+          count = select_prepared.next
         rescue StandardError
           if (attempts += 1) < 5
             retry
           end
           raise 'Failed to select'
         end
-        count = select_prepared.query_single_value
         count.to_s
       end
     end
