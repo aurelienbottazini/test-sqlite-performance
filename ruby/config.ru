@@ -3,7 +3,7 @@
 require 'roda'
 require 'extralite'
 
-DB = Extralite::Database.new('analytics.sqlite3')
+DB = Extralite::Database.new('analytics.sqlite3', wal: true)
 DB.pragma(journal_mode: 'wal')
 DB.pragma(synchronous: '1')
 DB.pragma(page_size: '4096')
