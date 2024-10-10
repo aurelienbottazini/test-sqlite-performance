@@ -3,7 +3,7 @@
   (:import com.mchange.v2.c3p0.ComboPooledDataSource)
   (:require [reitit.ring :as ring]
             [org.httpkit.server :as hk-server]
-            [clojure.java.jdbc :as j]))
+            [next.jdbc :as j]))
 
 (def db-spec
   {:classname "org.sqlite.JDBC"
@@ -30,14 +30,14 @@
 
 (defn visit [_request]
 (let [conn (db-connection)]
-  (j/execute! conn  "INSERT INTO visits (user_agent, referrer) VALUES (\"foo\", \"bar\");"))
+  (j/execute! conn  ["INSERT INTO visits (user_agent, referrer) VALUES (\"foo\", \"bar\");"]))
   {:status 204})
 
 (defn stats [_request]
 (let [conn (db-connection)
-result (j/query conn "SELECT MAX(id) as max from visits;")]
+result (j/execute-one! conn ["SELECT MAX(id) as max from visits;"])]
   {:status 200
-   :body (str (:max (first result)))}))
+   :body (str (:max result))}))
 
 (defn hello [_request]
   {:status 200
@@ -52,6 +52,9 @@ result (j/query conn "SELECT MAX(id) as max from visits;")]
 
 (defn -main [& _args]
   (let [conn (db-connection)]
-    (j/execute! conn "pragma temp_store = memory;")
-    (j/query conn "pragma mmap_size = 30000000000;")
+    (j/execute! conn ["pragma temp_store=memory;"])
+    (j/execute! conn ["pragma journal_mode=wal;"])
+    (j/execute! conn ["pragma synchronous=1;"])
+    (j/execute! conn ["pragma page_size=4096;"])
+    (j/execute! conn ["pragma mmap_size=30000000000;"])
     (hk-server/run-server app {:port 3030})))
