@@ -1,10 +1,9 @@
 (ns analytics.core
   (:gen-class)
   (:import com.mchange.v2.c3p0.ComboPooledDataSource)
-  (:require [ring.adapter.jetty :as jetty]
-             [reitit.ring :as ring]
-             [org.httpkit.server :as hk-server]
-             [clojure.java.jdbc :as j]))
+  (:require [reitit.ring :as ring]
+            [org.httpkit.server :as hk-server]
+            [clojure.java.jdbc :as j]))
 
 (def db-spec
   {:classname "org.sqlite.JDBC"
@@ -45,14 +44,14 @@ result (j/query conn "SELECT MAX(id) as max from visits;")]
    :body "Hello World!"})
 
 (def app
-(ring/ring-handler
-(ring/router
-[["/stats" {:get { :handler stats}}]
-["/visit" {:get { :handler visit}}]
-["/hello" {:get { :handler hello}}]])))
+  (ring/ring-handler
+    (ring/router
+      [["/stats" {:get { :handler stats}}]
+       ["/visit" {:get { :handler visit}}]
+       ["/hello" {:get { :handler hello}}]])))
 
 (defn -main [& _args]
   (let [conn (db-connection)]
     (j/execute! conn "pragma temp_store = memory;")
     (j/query conn "pragma mmap_size = 30000000000;")
-  (hk-server/run-server app {:port 3030})))
+    (hk-server/run-server app {:port 3030})))
