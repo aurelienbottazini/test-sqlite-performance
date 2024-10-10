@@ -28,14 +28,13 @@
 (def pooled-db (delay (pool db-spec)))
 (defn db-connection [] @pooled-db)
 
-(defn visit [_request]
-(let [conn (db-connection)]
-  (j/execute! conn  ["INSERT INTO visits (user_agent, referrer) VALUES (\"foo\", \"bar\");"]))
+(defn visit [{:keys [db]}]
+  (j/execute! db  ["INSERT INTO visits (user_agent, referrer) VALUES (\"foo\", \"bar\");"])
   {:status 204})
 
-(defn stats [_request]
-(let [conn (db-connection)
-result (j/execute-one! conn ["SELECT MAX(id) as max from visits;"])]
+(defn stats [{:keys [db]}]
+(let [
+result (j/execute-one! db ["SELECT MAX(id) as max from visits;"])]
   {:status 200
    :body (str (:max result))}))
 
@@ -43,18 +42,21 @@ result (j/execute-one! conn ["SELECT MAX(id) as max from visits;"])]
   {:status 200
    :body "Hello World!"})
 
-(def app
-  (ring/ring-handler
-    (ring/router
-      [["/stats" {:get { :handler stats}}]
-       ["/visit" {:get { :handler visit}}]
-       ["/hello" {:get { :handler hello}}]])))
+(defn wrap-db [handler db]
+  (fn [request] (handler (assoc request :db db))))
 
-(defn -main [& _args]
+(def app
   (let [conn (db-connection)]
     (j/execute! conn ["pragma temp_store=memory;"])
     (j/execute! conn ["pragma journal_mode=wal;"])
     (j/execute! conn ["pragma synchronous=1;"])
     (j/execute! conn ["pragma page_size=4096;"])
     (j/execute! conn ["pragma mmap_size=30000000000;"])
-    (hk-server/run-server app {:port 3030})))
+    (ring/ring-handler
+      (ring/router
+        [["/stats" {:get { :handler (wrap-db stats conn)}}]
+         ["/visit" {:get { :handler (wrap-db visit conn)}}]
+         ["/hello" {:get { :handler hello}}]]))))
+
+(defn -main [& _args]
+  (hk-server/run-server app {:port 3030}))
