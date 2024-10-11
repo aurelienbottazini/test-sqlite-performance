@@ -16,9 +16,9 @@
   (let [cpds (doto (ComboPooledDataSource.)
                (.setDriverClass (:classname spec))
                (.setJdbcUrl (str "jdbc:sqlite:analytics.sqlite3"))
-               (.setInitialPoolSize 6)
-               (.setMinPoolSize 6)
-               (.setMaxPoolSize 6)
+               (.setInitialPoolSize 12)
+               (.setMinPoolSize 12)
+               (.setMaxPoolSize 12)
                ;; expire excess connections after 30 minutes of inactivity:
                (.setMaxIdleTimeExcessConnections (* 30 60))
                ;; expire connections after 3 hours of inactivity:
