@@ -45,7 +45,7 @@ class App < Roda
           select_prepared.reset
           count = select_prepared.next
         rescue StandardError
-          if (attempts += 1) < 5
+          if (attempts += 1) < 100
             retry
           end
           raise 'Failed to select'
