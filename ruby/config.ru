@@ -9,6 +9,7 @@ DB.pragma(synchronous: '1')
 DB.pragma(page_size: '4096')
 DB.pragma(temp_store: 'memory')
 DB.pragma(mmap_size: '30000000000')
+DB.busy_timeout = 30
 
 class App < Roda
   insert_prepared = DB.prepare("INSERT INTO visits (user_agent, referrer) VALUES ('foo', 'bar');")
