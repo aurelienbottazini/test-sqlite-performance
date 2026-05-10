@@ -67,14 +67,20 @@ module Database
 
     def initialize
       setup_connection = PG.connect(connection_options)
-      setup_connection.exec(<<~SQL)
-        CREATE TABLE IF NOT EXISTS visits (
-          id bigserial PRIMARY KEY,
-          user_agent text NOT NULL,
-          referrer text NOT NULL
-        );
-      SQL
-      setup_connection.close
+      setup_connection.exec('SELECT pg_advisory_lock(836_424_001)')
+      begin
+        setup_connection.exec(<<~SQL)
+          CREATE UNLOGGED TABLE IF NOT EXISTS visits (
+            id bigserial PRIMARY KEY,
+            user_agent text NOT NULL,
+            referrer text NOT NULL
+          );
+          ALTER TABLE visits SET UNLOGGED;
+        SQL
+      ensure
+        setup_connection.exec('SELECT pg_advisory_unlock(836_424_001)')
+        setup_connection.close
+      end
     end
 
     def insert
@@ -90,8 +96,9 @@ module Database
     def connection
       Thread.current[:postgres_connection] ||= begin
         conn = PG.connect(connection_options)
+        conn.exec('SET synchronous_commit = off')
         conn.prepare(INSERT_STATEMENT, "INSERT INTO visits (user_agent, referrer) VALUES ('foo', 'bar');")
-        conn.prepare(SELECT_STATEMENT, 'SELECT MAX(id) FROM visits;')
+        conn.prepare(SELECT_STATEMENT, 'SELECT last_value FROM visits_id_seq;')
         conn
       end
     end
